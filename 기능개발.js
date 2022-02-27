@@ -1,3 +1,5 @@
+// https://programmers.co.kr/learn/courses/30/lessons/42586
+
 function getTimeToSpend(progresses, speeds) {
     return progresses.map((progress, i) => Math.ceil((100 - progress) / speeds[i]));
 }

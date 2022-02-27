@@ -1,3 +1,5 @@
+// https://programmers.co.kr/learn/courses/30/lessons/42888
+
 function parseItems(record) {
     const mappings = {};
     const actions = [];
