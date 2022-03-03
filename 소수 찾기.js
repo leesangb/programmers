@@ -1,6 +1,6 @@
 // https://programmers.co.kr/learn/courses/30/lessons/42839
 
-function getPrimes(number) {
+function getPrimes(number, numberArray) {
     // zero-based
     const marks = new Array(number + 1).fill(1);
     // mark 0 and 1 as not prime
@@ -18,14 +18,23 @@ function getPrimes(number) {
         }
     }
 
-    const primes = marks
-        .map((mark, i) => (mark ? i : 0))
-        .filter((i) => i > 0)
-        .map((i) => i.toString());
+    const primes = [];
+
+    for (let i = 0; i < marks.length; i++) {
+        if (marks[i]) {
+            const toBuild = i.toString();
+            if (canBuildNumber(toBuild, numberArray)) primes.push(toBuild);
+        }
+    }
 
     return primes;
 }
 
+/**
+ * numberArray에 있는 숫자들로 toBuild을 조합할 수 있는지 확인
+ * @param {string} toBuild 만들어 낼 숫자
+ * @param {string[]} numberArray 쓸 수 있는 숫자
+ */
 function canBuildNumber(toBuild, numberArray) {
     const left = {};
     numberArray.forEach((n) => (left[n] = (left[n] || 0) + 1));
@@ -44,14 +53,7 @@ function solution(numbers) {
     const numberArray = numbers.split('');
     const maxNumberStr = numberArray.sort((n1, n2) => n2.localeCompare(n1)).join('');
     const maxNumber = parseInt(maxNumberStr);
-    const primes = getPrimes(maxNumber);
+    const primes = getPrimes(maxNumber, numberArray);
 
-    const validPrimes = [];
-    primes.forEach((prime) => {
-        if (canBuildNumber(prime, numberArray)) {
-            validPrimes.push(prime);
-        }
-    });
-
-    return validPrimes.length;
+    return primes.length;
 }
