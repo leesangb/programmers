@@ -14,7 +14,11 @@ function solution(bridgeLength, bridgeMaxWeight, truckWeights) {
 
         if (onBridge.length < bridgeLength && onBridgeWeight + nextTruckWeight <= bridgeMaxWeight) {
             onBridge.push({ weight: truckWeights.shift(), tick: tick + bridgeLength });
+        } else if (onBridge.length) {
+            tick = onBridge[0].tick;
+            continue;
         }
+
         tick++;
     }
 
